@@ -46,8 +46,7 @@ def fetch_prices():
         return None
 
 def get_ai_analysis(symbol, name, price, pct_24h, market_cap, volume):
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key:
+api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_KEY", "")    if not api_key:
         return "Анализ недоступен: нет API ключа"
     prompt = (
         f"Ты криптовалютный аналитик. Монета {symbol} ({name}):\n"
