@@ -46,7 +46,8 @@ def fetch_prices():
         return None
 
 def get_ai_analysis(symbol, name, price, pct_24h, market_cap, volume):
-api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_KEY", "")    if not api_key:
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
         return "Анализ недоступен: нет API ключа"
     prompt = (
         f"Ты криптовалютный аналитик. Монета {symbol} ({name}):\n"
@@ -98,10 +99,10 @@ def scan():
         print("Нет данных от CoinGecko")
         return
     for coin in COINS:
-        cid     = coin["id"]
-        symbol  = coin["symbol"]
-        name    = coin["name"]
-        info    = data.get(cid, {})
+        cid        = coin["id"]
+        symbol     = coin["symbol"]
+        name       = coin["name"]
+        info       = data.get(cid, {})
         price      = info.get("usd", 0)
         pct_24h    = info.get("usd_24h_change", 0)
         market_cap = info.get("usd_market_cap", 0)
